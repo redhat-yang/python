@@ -1,4 +1,4 @@
-#生成随机密码
+# 生成随机密码
 import random
 from string import ascii_letters,digits
 
@@ -19,11 +19,60 @@ if __name__ == '__main__':
     print(a)
     print(b)
 
-#创建文件
-#编写程序,要求用户输入文件名
-#如果文件已存在,要求用户重新输入
-#提示用户输入数据,每行数据先写到列表中
-#将列表数据写入到用户输入的文件名中
+
+# 编程思路 发呆,思考程序的运作方式。交互？非交互？如果是交互的，程序有什么输出，要求用户有什么输入。
+python mkfile.py
+filename: /etc/hosts
+文件已存在，请重试。
+filename: /etc
+文件已存在，请重试。
+filename: /tmp/myfile.txt
+输请入内容，在单独的一行上输入end结束。
+(end to quit)> hello world!
+(end to quit)> ni hao
+(end to quit)> how are you?
+(end to quit)> end
+# cat /tmp/myfile.txt
+hello world!
+ni hao
+how are you?
+
+
+# 思考程序有哪些功能，将功能编写成函数。将大的 复杂的问题化简为一个个的小的问题。
+def get_fname():
+    '用户获取文件名'
+
+def get_content():
+    '用户获取文件内容'
+
+def wfile(fname, content):
+    '将内容content写入文件fname'
+
+
+# 书写主程序代码，按顺序调用函数
+def get_fname():
+    '返回文件名'
+
+def get_content():
+    '返回内容'
+
+def wfile(fname, content):
+    '将内容content写入文件fname'
+
+if __name__ == '__main__':
+    fname = get_fname()
+    content = get_content()
+    wfile(fname, content)
+
+
+# 填写每个具体的函数主体代码
+
+
+# 创建文件
+# 编写程序,要求用户输入文件名
+# 如果文件已存在,要求用户重新输入
+# 提示用户输入数据,每行数据先写到列表中
+# 将列表数据写入到用户输入的文件名中
 import os
 
 def get_filename():
