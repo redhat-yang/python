@@ -1,0 +1,42 @@
+版本1:
+f1 = open('/bin/ls','rb')
+f2 = open('/tmp/ls','wb')
+
+data = f1.read()
+f2.write(data)
+
+f1.close()
+f2.close()
+
+
+版本2 判断空值不写入,不是空值则取出4096,4k的大小写入.(如果文件很大，一次把所有内容读取出来，会占用太多的内存空间,方法可以取4096)
+src_fname = '/bin/ls'
+dst_fname = '/tmp/ls'
+src_fobj = open(src_fname,'rb')
+dst_fobj = open(dst_fname,'wb')
+
+while 1:
+    data = src_fobj.read(4096)
+    if data == b'':
+        break
+    else:
+        dst_fobj.write(data)
+
+src_fobj.close()
+dst_fobj.close()
+
+
+版本3:进化版
+src_fname = '/bin/ls'
+dst_fname = '/tmp/ls'
+
+with open(src_fname) as src_fobj:
+    with open(dst_fname) as dst_fobj:
+        while 1:
+            data = src_fobj.read(4096)
+            # if data == b'':
+            # if len(data) == 0:
+            if not data:        # data是空串表示False，前面加上not取反为True
+                break
+            else:
+                dst_fobj.write(data)
