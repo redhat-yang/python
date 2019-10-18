@@ -1,0 +1,40 @@
+# 将网站图片下载到本地
+# 本地的目录为/tmp/xxx/
+# 图片名与网站上图片名保持一致
+
+import wget
+import os
+import re
+from urllib import error
+
+def get_url(fname, patt, enconding=None):
+    patt_list = []
+    cpatt = re.compile(patt)
+    with open(fname,encoding=enconding) as fobj:
+        for line in fobj:
+            m = cpatt.search(line)
+            if m:
+                patt_list.append(m.group())
+
+    return patt_list
+
+if __name__ == '__main__':
+    img_dir = '/tmp/xxx'
+    url163 = 'http://www.xxx.com'
+    fname163 = '/tmp/xxx/xxx.html'
+    #如果不存在目录和网易首页文件,先创建并下载首页文件
+    if not os.path.exists(img_dir):
+        os.mkdir(img_dir)
+    if not os.path.exists(fname163):
+        wget.download(url163, fname163)
+
+    #获取网易首页上所有的图片url
+    img_patt = '(http|https)://[/\w.-]+\.(gif|png|jpg|jpeg)'
+    img_list = get_url(fname163, img_patt, 'gbk')
+    
+    #下载图片
+    for url in img_list:
+        try:
+            wget.download(url, img_dir)
+        except error.HTTPError:
+            pass
