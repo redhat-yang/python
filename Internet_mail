@@ -1,3 +1,4 @@
+# 通过ptyhon 连接互联网服务器发送邮件
 #!~/usr/bin/python
 from email.mime.text import MIMEText
 from email.header import Header
